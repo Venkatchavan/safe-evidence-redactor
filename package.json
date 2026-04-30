@@ -1,0 +1,66 @@
+{
+  "name": "safe-evidence-redactor",
+  "version": "0.1.0",
+  "description": "Privacy-first redaction library and CLI for security reports, logs, AI/MCP tool outputs, and bug reports. Offline. No telemetry.",
+  "keywords": [
+    "redact",
+    "redaction",
+    "privacy",
+    "pii",
+    "security",
+    "logs",
+    "mcp",
+    "ai-safety",
+    "secrets",
+    "jwt",
+    "aadhaar",
+    "pan",
+    "upi"
+  ],
+  "license": "MIT",
+  "author": "safe-evidence-redactor contributors",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "safe-redact": "./dist/cli.js",
+    "safe-redact-mcp": "./dist/mcp.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x dist/cli.js dist/mcp.js",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "npm run build && node --test --test-reporter=spec dist/test/**/*.test.js",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Venkatchavan/safe-evidence-redactor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Venkatchavan/safe-evidence-redactor/issues"
+  },
+  "homepage": "https://github.com/Venkatchavan/safe-evidence-redactor#readme"
+}
