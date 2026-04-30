@@ -18,17 +18,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@venkatchavan"
           cache: npm
       - run: npm ci || npm install
       - run: npm run build
       - run: npm test
-      - name: Publish to npm
+      - name: Publish to GitHub Packages
         if: startsWith(github.ref, 'refs/tags/v')
-        run: npm publish --access public --provenance
+        run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        continue-on-error: true
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
