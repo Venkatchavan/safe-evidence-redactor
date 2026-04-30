@@ -1,0 +1,19 @@
+# GitGuardian configuration
+# https://docs.gitguardian.com/internal-monitoring/integrations/cli_apps/ggshield_configuration
+#
+# Why this file exists:
+# safe-evidence-redactor is a *redaction* library. Its test suite contains
+# deliberately fake secrets (a sample JWT, a "Bearer abc..." string, fake
+# vendor-prefixed keys, etc.) used to verify the redactor catches them. These
+# values are not real credentials. We ignore them here so GitGuardian doesn't
+# repeatedly flag them.
+
+version: 2
+
+paths-ignore:
+  - "src/test/**"
+  - "dist/**"
+  - "node_modules/**"
+
+# Per-secret ignores for any future false positives that escape paths-ignore.
+secrets-ignore: []
