@@ -1,9 +1,9 @@
-# safe-evidence-redactor
+# @venkatchavan/safe-evidence-redactor
 
 > Privacy-first redaction for security reports, logs, AI outputs, MCP tool outputs, and bug reports.
 > **Offline. No telemetry. No network.**
 
-`safe-evidence-redactor` removes sensitive evidence (PII, secrets, tokens) from text and JSON while preserving enough context to keep the output debuggable. Use it before pasting logs into a chat, attaching reports to a ticket, or returning data from an MCP tool.
+`@venkatchavan/safe-evidence-redactor` removes sensitive evidence (PII, secrets, tokens) from text and JSON while preserving enough context to keep the output debuggable. Use it before pasting logs into a chat, attaching reports to a ticket, or returning data from an MCP tool.
 
 - 🔒 Redacts emails, phone numbers (incl. Indian mobile), IPv4/IPv6, Bearer tokens, JWTs, vendor API keys, cookies, `Authorization` headers, Aadhaar, PAN, UPI IDs, and sensitive URL query params.
 - 🌳 Walks nested JSON: preserves keys and structure, redacts values, reports JSON paths.
@@ -14,10 +14,23 @@
 
 ## Install
 
+The package is published to **GitHub Packages**.
+
 ```sh
-npm install safe-evidence-redactor
-# or, for the CLI globally:
-npm install -g safe-evidence-redactor
+# Authenticate once — use a GitHub personal access token with read:packages scope
+npm login --registry=https://npm.pkg.github.com --scope=@venkatchavan
+
+# Install
+npm install @venkatchavan/safe-evidence-redactor
+
+# Or globally for the CLI tools
+npm install -g @venkatchavan/safe-evidence-redactor
+```
+
+Alternatively, add a `.npmrc` to your project so the scope resolves automatically:
+
+```
+@venkatchavan:registry=https://npm.pkg.github.com
 ```
 
 Node 18+ required.
@@ -25,7 +38,7 @@ Node 18+ required.
 ## Library
 
 ```ts
-import { redactText, redactJson, redactValue } from "safe-evidence-redactor";
+import { redactText, redactJson, redactValue } from "@venkatchavan/safe-evidence-redactor";
 
 const { output, stats } = redactText(
   "Login alert from 10.0.0.5 for alice@example.com (PAN ABCDE1234F)",
@@ -135,7 +148,7 @@ See [SECURITY.md](./SECURITY.md). Short version: this library never touches the 
 
 ## MCP server
 
-`safe-evidence-redactor` also ships a Model Context Protocol server so any MCP-aware client (Claude Desktop, MCP Inspector, agent frameworks) can call the redactor as a tool. The server is fully offline and speaks MCP over stdio.
+`@venkatchavan/safe-evidence-redactor` also ships a Model Context Protocol server so any MCP-aware client (Claude Desktop, MCP Inspector, agent frameworks) can call the redactor as a tool. The server is fully offline and speaks MCP over stdio.
 
 Tools exposed:
 - `redact_text` — input: `{ input: string, mode?, allow? }`
@@ -162,7 +175,7 @@ node dist/mcp.js
   "mcpServers": {
     "safe-evidence-redactor": {
       "command": "npx",
-      "args": ["-y", "safe-evidence-redactor", "safe-redact-mcp"]
+      "args": ["-y", "--registry=https://npm.pkg.github.com", "@venkatchavan/safe-evidence-redactor", "safe-redact-mcp"]
     }
   }
 }
