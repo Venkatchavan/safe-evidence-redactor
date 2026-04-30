@@ -18,7 +18,7 @@
     "upi"
   ],
   "license": "MIT",
-  "author": "safe-evidence-redactor contributors",
+  "author": "Venkat Chavan",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -33,7 +33,19 @@
     "safe-redact-mcp": "./dist/mcp.js"
   },
   "files": [
-    "dist",
+    "dist/cli.js",
+    "dist/cli.d.ts",
+    "dist/mcp.js",
+    "dist/mcp.d.ts",
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/index.d.ts.map",
+    "dist/redact.js",
+    "dist/redact.d.ts",
+    "dist/redact.d.ts.map",
+    "dist/patterns.js",
+    "dist/patterns.d.ts",
+    "dist/patterns.d.ts.map",
     "README.md",
     "LICENSE",
     "SECURITY.md"
@@ -42,7 +54,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && node -e \"if(process.platform!=='win32'){const f=require('fs');for(const p of ['dist/cli.js','dist/mcp.js'])f.chmodSync(p,0o755)}\"",
+    "build": "tsc -p tsconfig.json && node scripts/chmod-bins.mjs",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "prepublishOnly": "npm run clean && npm run build",
     "test": "npm run build && node scripts/run-tests.mjs",
@@ -62,5 +74,8 @@
   "bugs": {
     "url": "https://github.com/Venkatchavan/safe-evidence-redactor/issues"
   },
-  "homepage": "https://github.com/Venkatchavan/safe-evidence-redactor#readme"
+  "homepage": "https://github.com/Venkatchavan/safe-evidence-redactor#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
